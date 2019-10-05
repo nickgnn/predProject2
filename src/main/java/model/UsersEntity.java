@@ -4,24 +4,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users", schema = "db_example")
-public class User {
+@Table(name = "users", schema = "db_example", catalog = "")
+public class UsersEntity {
     private long id;
     private String name;
     private int age;
-
-    public User() {}
-
-    public User(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public User(long id, String name, int age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-    }
 
     @Id
     @Column(name = "id")
@@ -54,24 +41,27 @@ public class User {
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return Objects.equals(getName(), user.getName());
+        if (o == null || getClass() != o.getClass()) return false;
+        UsersEntity that = (UsersEntity) o;
+        return id == that.id &&
+                age == that.age &&
+                Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName());
+
+        return Objects.hash(id, name, age);
+    }
+
+    @Override
+    public String toString() {
+        return "UsersEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
