@@ -1,23 +1,33 @@
 package service;
 
+import dao.UserDao;
 import exception.DBException;
 import model.User;
+import org.hibernate.SessionFactory;
+import util.DBHelper;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserService implements Service {
-    public void createTable() throws DBException {
-        try {
-            dao.createTable();
-        } catch (SQLException e) {
-            throw new DBException(e);
-        }
+    private static UserService userService;
+    private SessionFactory sessionFactory;
+
+    public UserService(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public void cleanUp() throws DBException {
+    public static UserService getInstance() {
+        if (userService == null) {
+            userService = new UserService(DBHelper.getSessionFactory());
+        }
+
+        return userService;
+    }
+
+    public void addUser(String name, int age) throws DBException {
         try {
-            dao.dropTable();
+            new UserDao(sessionFactory.openSession()).addUser(name, age);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -25,15 +35,7 @@ public class UserService implements Service {
 
     public List<User> getAllUsers() throws DBException {
         try {
-            return dao.getAllUsers();
-        } catch (SQLException e) {
-            throw new DBException(e);
-        }
-    }
-
-    public void addUser(String name, int age) throws DBException {
-        try {
-            dao.addUser(name, age);
+            return new UserDao(sessionFactory.openSession()).getAllUsers();
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -41,7 +43,15 @@ public class UserService implements Service {
 
     public User getUserByName(String name) throws DBException {
         try {
-            return dao.getUser(name);
+            return new UserDao(sessionFactory.openSession()).getUserByName(name);
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
+    public long getUserIdByName(String name) throws DBException {
+        try {
+            return new UserDao(sessionFactory.openSession()).getUserIdByName(name);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -49,7 +59,7 @@ public class UserService implements Service {
 
     public void updateUser(User user, String name) throws DBException {
         try {
-            dao.updateUser(user, name);
+            new UserDao(sessionFactory.openSession()).updateUser(user, name);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -57,7 +67,7 @@ public class UserService implements Service {
 
     public void updateUser(User user, int age) throws DBException {
         try {
-            dao.updateUser(user, age);
+            new UserDao(sessionFactory.openSession()).updateUser(user, age);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -65,7 +75,7 @@ public class UserService implements Service {
 
     public void updateUser(User user, Long id) throws DBException {
         try {
-            dao.updateUser(user, id);
+            new UserDao(sessionFactory.openSession()).updateUser(user, id);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -73,7 +83,7 @@ public class UserService implements Service {
 
     public void deleteUserByName(String name) throws DBException {
         try {
-            dao.deleteUserByName(name);
+            new UserDao(sessionFactory.openSession()).deleteUserByName(name);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -82,15 +92,23 @@ public class UserService implements Service {
     @Override
     public void deleteUserById(Long id) throws DBException {
         try {
-            dao.deleteUserById(id);
+            new UserDao(sessionFactory.openSession()).deleteUserById(id);
         } catch (SQLException e) {
             throw new DBException(e);
         }
     }
 
-    public long getUserIdByName(String name) throws DBException {
+    public void createTable() throws DBException {
         try {
-            return dao.getClientIdByName(name);
+            new UserDao(sessionFactory.openSession()).createTable();
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
+    public void cleanUp() throws DBException {
+        try {
+            new UserDao(sessionFactory.openSession()).dropTable();
         } catch (SQLException e) {
             throw new DBException(e);
         }

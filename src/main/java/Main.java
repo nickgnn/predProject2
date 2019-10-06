@@ -1,63 +1,56 @@
 import exception.DBException;
 import model.User;
-import org.hibernate.HibernateException;
-import org.hibernate.Metamodel;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
+import service.Service;
 import service.UserService;
 
-import javax.persistence.metamodel.EntityType;
-
 public class Main {
-    private static final SessionFactory ourSessionFactory;
+//    private static final SessionFactory ourSessionFactory;
 
-    static {
-        try {
-            Configuration configuration = new Configuration();
-            configuration.configure();
+//    static {
+//        try {
+//            Configuration configuration = new Configuration();
+//            configuration.configure();
+//
+//            System.out.println("ALL WORKS!!!!!!!!!");
+//
+//            ourSessionFactory = configuration.buildSessionFactory();
+//        } catch (Throwable ex) {
+//            throw new ExceptionInInitializerError(ex);
+//        }
+//    }
 
-            System.out.println("ALL WORKS!!!!!!!!!");
-
-            ourSessionFactory = configuration.buildSessionFactory();
-        } catch (Throwable ex) {
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
-
-    public static Session getSession() throws HibernateException {
-        System.out.println("START getSession!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        return ourSessionFactory.openSession();
-    }
-
-    public static void getUsersThroughHibernate() {
-        System.out.println("START getUsersThroughHibernate!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        final Session session = getSession();
-        try {
-            System.out.println("querying all the managed entities...");
-            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
-            for (EntityType<?> entityType : metamodel.getEntities()) {
-                final String entityName = entityType.getName();
-                final Query query = session.createQuery("from " + entityName);
-                System.out.println("executing: " + query.getQueryString());
-                for (Object o : query.list()) {
-                    System.out.println("  " + o);
-                }
-            }
-        } finally {
-            session.close();
-        }
-    }
+//    public static Session getSession() throws HibernateException {
+//        System.out.println("START getSession!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//
+//        return ourSessionFactory.openSession();
+//    }
+//
+//    public static void getUsersThroughHibernate() {
+//        System.out.println("START getUsersThroughHibernate!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//
+//        final Session session = getSession();
+//        try {
+//            System.out.println("querying all the managed entities...");
+//            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
+//            for (EntityType<?> entityType : metamodel.getEntities()) {
+//                final String entityName = entityType.getName();
+//                final Query query = session.createQuery("from " + entityName);
+//                System.out.println("executing: " + query.getQueryString());
+//                for (Object o : query.list()) {
+//                    System.out.println("  " + o);
+//                }
+//            }
+//        } finally {
+//            session.close();
+//        }
+//    }
 
     public static void main(String[] args) throws DBException {
         System.out.println("START MAIN!!!!!!!!!!!!!!!!!!!!!!!");
 
-        UserService service = new UserService();
-        service.cleanUp();
-        service.createTable();
+        Service service = UserService.getInstance();
+//        service.cleanUp();
+//        service.createTable();
 
         service.addUser("nick", 18);
         service.addUser("dick", 28);
@@ -99,6 +92,6 @@ public class Main {
 
 
 //        service.cleanUp();
-        getUsersThroughHibernate();
+//        getUsersThroughHibernate();
     }
 }

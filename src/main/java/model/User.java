@@ -6,8 +6,16 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "db_example")
 public class User {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "age")
     private int age;
 
     public User() {}
@@ -23,8 +31,6 @@ public class User {
         this.age = age;
     }
 
-    @Id
-    @Column(name = "id")
     public long getId() {
         return id;
     }
@@ -33,8 +39,6 @@ public class User {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -43,8 +47,6 @@ public class User {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "age")
     public int getAge() {
         return age;
     }

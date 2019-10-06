@@ -2,6 +2,7 @@ package servlets;
 
 import exception.DBException;
 import model.User;
+import service.Service;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ import java.io.IOException;
 public class EditUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = new UserService();
+        Service service = UserService.getInstance();
 
 //        String newId = req.getParameter("newId");
         String newName = req.getParameter("newName");

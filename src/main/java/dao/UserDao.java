@@ -1,129 +1,55 @@
 package dao;
 
 import model.User;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hibernate.hql.internal.antlr.HqlTokenTypes.UPDATE;
+
 public class UserDao implements DAO {
-    public void createTable() throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS `users` (\n" +
-                     " `id` BIGINT NOT NULL AUTO_INCREMENT,\n" +
-                     " `name` VARCHAR(45) NOT NULL,\n" +
-                     " `age` INT NOT NULL,\n" +
-                     "PRIMARY KEY (`id`))";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.execute();
-        preparedStatement.close();
+    private Session session;
+
+    public UserDao(Session session) {
+        this.session = session;
     }
 
-    public void dropTable() throws SQLException {
-        String sql = "DROP TABLE IF EXISTS `users`";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.execute();
-        preparedStatement.close();
-    }
-
-    public List<User> getAllUsers() throws SQLException {
-        String sql = "SELECT * FROM `users`";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        List<User> list = new ArrayList<>();
-
-        while (resultSet.next()) {
-            list.add(new User(
-                    resultSet.getLong("id"),
-                    resultSet.getString("name"),
-                    resultSet.getInt("age")));
-        }
-
-        resultSet.close();
-        preparedStatement.close();
-
-        return list;
-    }
-
-    public int addUser(String name, int age) throws SQLException {
-        User user = getUser(name);
-        int rows = 0;
+    public void addUser(String name, int age) throws SQLException {
+        User user = getUserByName(name);
 
         if (user == null) {
-            String sql = "INSERT INTO `users` (`name`, `age`) VALUES (?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            preparedStatement.setInt(2, age);
-
-            rows = preparedStatement.executeUpdate();
-
-            preparedStatement.close();
+            Transaction transaction = session.beginTransaction();
+            session.save(new User(name, age));
+            transaction.commit();
+            session.close();
         } else {
             System.out.println("This name already exists, choose another name:)");
         }
-
-        return rows;
     }
 
-    public User getUser(String name) throws SQLException {
-        String sql = "SELECT * FROM `users` WHERE (`name` = ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, name);
+    public List<User> getAllUsers() throws SQLException {
+        Transaction transaction = session.beginTransaction();
+        List<User> users = session.createQuery("FROM User").list();
+        transaction.commit();
+        session.close();
 
-        User user;
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        if (resultSet.next()) {
-            user = new User(resultSet.getLong("id"),
-                    resultSet.getString("name"),
-                    resultSet.getInt("age"));
-        } else {
-            return null;
-        }
-
-        resultSet.close();
-        preparedStatement.close();
-
-        return user;
+        return users;
     }
 
-    public void updateUser(User user, String name) throws SQLException {
-        String sql = "UPDATE `users` SET `name` = ? WHERE (`id` = ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, name);
-        preparedStatement.setLong(2, user.getId());
-
-        preparedStatement.execute();
-
-        preparedStatement.close();
+    public User getUserByName(String name) throws SQLException {
+        return (User) session.createCriteria(User.class)
+                .add(Restrictions.eq("name", name))
+                .uniqueResult();
     }
 
-    public void updateUser(User user, int age) throws SQLException {
-        String sql = "UPDATE `users` SET `age` = ? WHERE (`id` = ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, age);
-        preparedStatement.setLong(2, user.getId());
-
-        preparedStatement.execute();
-
-        preparedStatement.close();
-    }
-
-    public void updateUser(User user, Long ID) throws SQLException {
-        String sql = "UPDATE `users` SET `id` = ? WHERE (`id` = ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1, ID);
-        preparedStatement.setLong(2, user.getId());
-
-        preparedStatement.execute();
-
-        preparedStatement.close();
-    }
-
-    public long getClientIdByName(String name) throws SQLException {
+    public long getUserIdByName(String name) throws SQLException {
         long id = 0;
-        User user = getUser(name);
+        User user = getUserByName(name);
 
         if (user == null) {
             return id;
@@ -134,22 +60,58 @@ public class UserDao implements DAO {
         return id;
     }
 
-    public void deleteUserByName(String name) throws SQLException {
-        String sql = "DELETE FROM `users` WHERE (`name` = ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, name);
+    public void updateUser(User user, String name) throws SQLException {
+        Transaction transaction = session.beginTransaction();
+        session.update(name, user);
+        transaction.commit();
+        session.close();
+    }
 
-        preparedStatement.execute();
-        preparedStatement.close();
+    public void updateUser(User user, int age) throws SQLException {
+        Transaction transaction = session.beginTransaction();
+        session.update(String.valueOf(age), user);
+        transaction.commit();
+        session.close();
+    }
+
+    public void updateUser(User user, Long ID) throws SQLException {
+        Transaction transaction = session.beginTransaction();
+        session.update(String.valueOf(ID), user);
+        transaction.commit();
+        session.close();
+    }
+
+    public void deleteUserByName(String name) throws SQLException {
+        Transaction transaction = session.beginTransaction();
+        session.delete(getUserByName(name));
+        transaction.commit();
+        session.close();
     }
 
     public void deleteUserById(Long id) throws SQLException {
-        String sql = "DELETE FROM `users` WHERE (`id` = ?)";
+        Transaction transaction = session.beginTransaction();
+        String hql = "DELETE User WHERE id = :id";
+        Query query = session.createQuery(hql);
+        query.executeUpdate();
+        transaction.commit();
+        session.close();
+    }
 
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1, id);
+    public void createTable() throws SQLException {
+//        String sql = "CREATE TABLE IF NOT EXISTS `users` (\n" +
+//                     " `id` BIGINT NOT NULL AUTO_INCREMENT,\n" +
+//                     " `name` VARCHAR(45) NOT NULL,\n" +
+//                     " `age` INT NOT NULL,\n" +
+//                     "PRIMARY KEY (`id`))";
+//        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//        preparedStatement.execute();
+//        preparedStatement.close();
+    }
 
-        preparedStatement.execute();
-        preparedStatement.close();
+    public void dropTable() throws SQLException {
+//        String sql = "DROP TABLE IF EXISTS `users`";
+//        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//        preparedStatement.execute();
+//        preparedStatement.close();
     }
 }

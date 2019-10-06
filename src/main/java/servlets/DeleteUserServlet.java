@@ -1,6 +1,7 @@
 package servlets;
 
 import exception.DBException;
+import service.Service;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,8 @@ import java.io.IOException;
 @WebServlet("/delete")
 public class DeleteUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = new UserService();
+        Service service = UserService.getInstance();
+
         Long id = Long.valueOf(req.getParameter("id"));
 
         req.getRequestDispatcher("/users").forward(req, resp);

@@ -2,6 +2,7 @@ package servlets;
 
 import exception.DBException;
 import model.User;
+import service.Service;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,8 @@ import java.util.List;
 public class UsersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = new UserService();
+        Service service = UserService.getInstance();
+
         try {
             List<User> allUsers = service.getAllUsers();
             req.setAttribute("usersList", allUsers);

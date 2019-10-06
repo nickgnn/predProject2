@@ -1,14 +1,11 @@
 package service;
 
-import dao.UserDao;
 import exception.DBException;
 import model.User;
 
 import java.util.List;
 
 public interface Service {
-    UserDao dao = new UserDao();
-
     void createTable() throws DBException;
 
     void cleanUp() throws DBException;
