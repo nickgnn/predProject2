@@ -13,7 +13,7 @@
 <body>
 <p><a href="/">Main</a></p>
 
-<form action="/users" method="post">
+<form action="/users" method="get">
     <table>
             <tbody>
             <tr>

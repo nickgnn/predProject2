@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet("/users")
 public class UsersServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Service service = UserService.getInstance();
 
         try {

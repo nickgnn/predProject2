@@ -16,7 +16,7 @@
 <p><a href="/">Main</a></p>
 
 
-<form action="/add" method="post">
+<form action="/add" method="get">
     <table>
                 <tbody>
                 <%--<tr>--%>
@@ -49,7 +49,7 @@
 <br><br>
 
 <h1>Users</h1>
-<form action="/users" method="post">
+<form action="/users" method="get">
     <input type="submit" value="Refresh Users">
 </form>
 
@@ -76,7 +76,7 @@
         <th><%=user.getId()%></th>
         <th><%=user.getName()%></th>
         <th><%=user.getAge()%></th>
-        <td><form action="/edit" method="post">
+        <td><form action="/edit" method="get">
             <table>
                 <tbody>
                 <%--<tr>--%>
@@ -112,7 +112,7 @@
         </td>
 
         <td>
-            <form action="/delete" method="post">
+            <form action="/delete" method="get">
                 <table>
                     <tbody>
                     <tr>
