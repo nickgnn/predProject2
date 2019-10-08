@@ -16,11 +16,11 @@ public interface DAO {
 
     User getUserByName(String name) throws SQLException;
 
-    void updateUser(User user, String name) throws SQLException;
+    int updateUser(User user, String name) throws SQLException;
 
-    void updateUser(User user, int age) throws SQLException;
+    int updateUser(User user, int age) throws SQLException;
 
-    void updateUser(User user, Long ID) throws SQLException;
+    int updateUser(User user, Long ID) throws SQLException;
 
     long getUserIdByName(String name) throws SQLException;
 

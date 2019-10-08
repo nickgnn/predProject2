@@ -6,6 +6,8 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,9 @@ public class UserDao implements DAO {
 
     public List<User> getAllUsers() throws SQLException {
         Transaction transaction = session.beginTransaction();
+
         List<User> users = session.createQuery("FROM User").list();
+
         transaction.commit();
         session.close();
 
@@ -42,9 +46,22 @@ public class UserDao implements DAO {
     }
 
     public User getUserByName(String name) throws SQLException {
-        return (User) session.createCriteria(User.class)
-                .add(Restrictions.eq("name", name))
-                .uniqueResult();
+        Transaction transaction =  session.beginTransaction();
+
+        String hql = "FROM User WHERE name = :userName";
+        Query query = session.createQuery(hql);
+        query.setParameter("userName", name);
+        List<User> users = query.list();
+
+        transaction.commit();
+
+        if (users.size() == 0) {
+            return null;
+        }
+
+        session.close();
+
+        return users.get(0);
     }
 
     public long getUserIdByName(String name) throws SQLException {
@@ -60,39 +77,84 @@ public class UserDao implements DAO {
         return id;
     }
 
-    public void updateUser(User user, String name) throws SQLException {
-        Transaction transaction = session.beginTransaction();
-        session.update(name, user);
-        transaction.commit();
-        session.close();
+    public int updateUser(User user, String name) throws SQLException {
+        User userCheck = getUserByName(name);
+        int res = 0;
+
+        if (userCheck == null) {
+            Transaction transaction = session.beginTransaction();
+
+            String hql = "UPDATE User SET name = :newName where id = :userID";
+            Query query = session.createQuery(hql);
+            query.setParameter("newName", name);
+            query.setParameter("userID", user.getId());
+
+            res = query.executeUpdate();
+
+            transaction.commit();
+            session.close();
+        } else {
+            System.out.println("This name already exists, choose another name:)");
+            return res;
+        }
+
+        return res;
     }
 
-    public void updateUser(User user, int age) throws SQLException {
+    public int updateUser(User user, int age) throws SQLException {
         Transaction transaction = session.beginTransaction();
-        session.update(String.valueOf(age), user);
+
+        String hql = "UPDATE User SET age = :newAge where id = :userID";
+        Query query = session.createQuery(hql);
+        query.setParameter("newAge", age);
+        query.setParameter("userID", user.getId());
+
+        int res = query.executeUpdate();
+
         transaction.commit();
         session.close();
+
+        return res;
     }
 
-    public void updateUser(User user, Long ID) throws SQLException {
+    public int updateUser(User user, Long ID) throws SQLException {
         Transaction transaction = session.beginTransaction();
-        session.update(String.valueOf(ID), user);
+
+        String hql = "UPDATE User SET id = :newID where id = :userID";
+        Query query = session.createQuery(hql);
+        query.setParameter("newID", ID);
+        query.setParameter("userID", user.getId());
+
+        int res = query.executeUpdate();
+
         transaction.commit();
         session.close();
+
+        return res;
     }
 
     public void deleteUserByName(String name) throws SQLException {
         Transaction transaction = session.beginTransaction();
-        session.delete(getUserByName(name));
+
+        String hql = "DELETE User WHERE name = :userName";
+        Query query = session.createQuery(hql);
+        query.setParameter("userName", name);
+
+        query.executeUpdate();
+
         transaction.commit();
         session.close();
     }
 
     public void deleteUserById(Long id) throws SQLException {
         Transaction transaction = session.beginTransaction();
-        String hql = "DELETE User WHERE id = :id";
+
+        String hql = "DELETE User WHERE id = :userID";
         Query query = session.createQuery(hql);
+        query.setParameter("userID", id);
+
         query.executeUpdate();
+
         transaction.commit();
         session.close();
     }
