@@ -1,7 +1,6 @@
 package dao;
 
 import model.User;
-import sun.dc.pr.PRError;
 
 import java.sql.*;
 import java.util.ArrayList;
