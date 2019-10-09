@@ -1,6 +1,6 @@
 package service;
 
-import dao.UserDao;
+import dao.UserDaoByHibernate;
 import exception.DBException;
 import model.User;
 import org.hibernate.SessionFactory;
@@ -27,7 +27,7 @@ public class UserService implements Service {
 
     public void addUser(String name, int age) throws DBException {
         try {
-            new UserDao(sessionFactory.openSession()).addUser(name, age);
+            new UserDaoByHibernate(sessionFactory.openSession()).addUser(name, age);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -35,7 +35,7 @@ public class UserService implements Service {
 
     public List<User> getAllUsers() throws DBException {
         try {
-            return new UserDao(sessionFactory.openSession()).getAllUsers();
+            return new UserDaoByHibernate(sessionFactory.openSession()).getAllUsers();
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -43,7 +43,7 @@ public class UserService implements Service {
 
     public User getUserByName(String name) throws DBException {
         try {
-            return new UserDao(sessionFactory.openSession()).getUserByName(name);
+            return new UserDaoByHibernate(sessionFactory.openSession()).getUserByName(name);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -51,7 +51,7 @@ public class UserService implements Service {
 
     public long getUserIdByName(String name) throws DBException {
         try {
-            return new UserDao(sessionFactory.openSession()).getUserIdByName(name);
+            return new UserDaoByHibernate(sessionFactory.openSession()).getUserIdByName(name);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -59,7 +59,7 @@ public class UserService implements Service {
 
     public void updateUser(User user, String name) throws DBException {
         try {
-            new UserDao(sessionFactory.openSession()).updateUser(user, name);
+            new UserDaoByHibernate(sessionFactory.openSession()).updateUser(user, name);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -67,7 +67,7 @@ public class UserService implements Service {
 
     public void updateUser(User user, int age) throws DBException {
         try {
-            new UserDao(sessionFactory.openSession()).updateUser(user, age);
+            new UserDaoByHibernate(sessionFactory.openSession()).updateUser(user, age);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -75,7 +75,7 @@ public class UserService implements Service {
 
     public void updateUser(User user, Long id) throws DBException {
         try {
-            new UserDao(sessionFactory.openSession()).updateUser(user, id);
+            new UserDaoByHibernate(sessionFactory.openSession()).updateUser(user, id);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -83,7 +83,7 @@ public class UserService implements Service {
 
     public void deleteUserByName(String name) throws DBException {
         try {
-            new UserDao(sessionFactory.openSession()).deleteUserByName(name);
+            new UserDaoByHibernate(sessionFactory.openSession()).deleteUserByName(name);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -92,7 +92,7 @@ public class UserService implements Service {
     @Override
     public void deleteUserById(Long id) throws DBException {
         try {
-            new UserDao(sessionFactory.openSession()).deleteUserById(id);
+            new UserDaoByHibernate(sessionFactory.openSession()).deleteUserById(id);
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -100,7 +100,7 @@ public class UserService implements Service {
 
     public void createTable() throws DBException {
         try {
-            new UserDao(sessionFactory.openSession()).createTable();
+            new UserDaoByHibernate(sessionFactory.openSession()).createTable();
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -108,7 +108,7 @@ public class UserService implements Service {
 
     public void cleanUp() throws DBException {
         try {
-            new UserDao(sessionFactory.openSession()).dropTable();
+            new UserDaoByHibernate(sessionFactory.openSession()).dropTable();
         } catch (SQLException e) {
             throw new DBException(e);
         }

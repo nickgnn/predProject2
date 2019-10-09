@@ -14,10 +14,10 @@ import java.util.List;
 
 import static org.hibernate.hql.internal.antlr.HqlTokenTypes.UPDATE;
 
-public class UserDao implements DAO {
+public class UserDaoByHibernate implements DAO {
     private Session session;
 
-    public UserDao(Session session) {
+    public UserDaoByHibernate(Session session) {
         this.session = session;
     }
 
@@ -79,7 +79,7 @@ public class UserDao implements DAO {
 
     public int updateUser(User user, String name) throws SQLException {
         User userCheck = getUserByName(name);
-        int res = 0;
+        int rows = 0;
 
         if (userCheck == null) {
             Transaction transaction = session.beginTransaction();
@@ -89,16 +89,16 @@ public class UserDao implements DAO {
             query.setParameter("newName", name);
             query.setParameter("userID", user.getId());
 
-            res = query.executeUpdate();
+            rows = query.executeUpdate();
 
             transaction.commit();
             session.close();
         } else {
             System.out.println("This name already exists, choose another name:)");
-            return res;
+            return rows;
         }
 
-        return res;
+        return rows;
     }
 
     public int updateUser(User user, int age) throws SQLException {
