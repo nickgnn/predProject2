@@ -3,16 +3,10 @@ package dao;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
-
-import static org.hibernate.hql.internal.antlr.HqlTokenTypes.UPDATE;
 
 public class UserDaoByHibernate implements DAO {
     private Session session;

@@ -54,25 +54,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserDaoByHibernate.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserDaoByHibernate.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDaoByHibernate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1720">
-              <caret line="98" column="9" lean-forward="true" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
-              <folding>
-                <element signature="e#522#523#0" expanded="true" />
-                <element signature="e#560#561#0" expanded="true" />
-                <element signature="method#createTable#0;class#UserDao#0" />
-                <element signature="method#dropTable#0;class#UserDao#0" />
-              </folding>
+            <state relative-caret-position="984">
+              <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/util/DBHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
+            <state relative-caret-position="660">
               <caret line="48" column="47" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="47" />
             </state>
           </provider>
@@ -82,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="200">
-              <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+              <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -99,12 +93,10 @@
       <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/service/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
+            <state relative-caret-position="400">
               <caret line="29" column="34" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#389#390#0" expanded="true" />
-                <element signature="e#441#442#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,7 +105,7 @@
       <file leaf-file-name="EditUserServlet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/servlets/EditUserServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
+            <state relative-caret-position="880">
               <caret line="54" column="32" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
             </state>
           </provider>
@@ -136,7 +128,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/servlets/AddUserServlet.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="160">
-              <caret line="17" column="12" lean-forward="true" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+              <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -176,7 +168,7 @@
       <find>sessionFactory.openSession()</find>
     </findStrings>
     <replaceStrings>
-      <replace />
+      <replace>new UserDao(sessionFactory.openSession())</replace>
       <replace>UserDaoByJDBC</replace>
       <replace>DBHelper.getMy</replace>
       <replace>DBHelpergetMysqlConnection()</replace>
@@ -259,6 +251,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -347,9 +341,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -536,51 +528,51 @@
       <workItem from="1570559645746" duration="258000" />
       <workItem from="1570560271561" duration="47000" />
       <workItem from="1570560333003" duration="5000" />
-      <workItem from="1570637629083" duration="2605000" />
+      <workItem from="1570637629083" duration="2829000" />
+      <workItem from="1570643887690" duration="284000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48447000" />
+    <option name="totallyTimeSpent" value="48955000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2208" height="1208" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" />
-      <window_info anchor="bottom" id="Application Servers" order="8" weight="0.32929105" />
-      <window_info anchor="right" id="Maven Projects" order="9" weight="0.32976744" />
-      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
-      <window_info id="Capture Tool" order="8" />
-      <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="5" weight="0.32976744" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.39925373" />
       <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32929105" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.3572761" />
+      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" />
+      <window_info anchor="bottom" id="Application Servers" order="8" weight="0.32929105" />
+      <window_info anchor="right" id="Maven Projects" order="9" weight="0.32976744" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="13" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.3572761" />
       <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16651163" />
+      <window_info id="Capture Tool" order="8" />
+      <window_info id="Designer" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16790697" />
       <window_info id="Web" order="6" side_tool="true" />
+      <window_info anchor="right" id="Database" order="5" weight="0.32976744" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="4" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.39925373" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32929105" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info id="Persistence" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Console" order="0" weight="0.32929105" />
-      <window_info anchor="bottom" id="Find" order="2" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="right" id="Bean Validation" order="8" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="2" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -873,14 +865,7 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
-          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/util/DBHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="48" column="47" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="47" />
+          <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -894,7 +879,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/servlets/AddUserServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
-          <caret line="17" column="12" lean-forward="true" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -907,7 +892,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/servlets/EditUserServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
+        <state relative-caret-position="880">
           <caret line="54" column="32" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
         </state>
       </provider>
@@ -921,13 +906,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/service/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
+        <state relative-caret-position="400">
           <caret line="29" column="34" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#389#390#0" expanded="true" />
-            <element signature="e#441#442#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDaoByHibernate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="984">
+          <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -942,16 +932,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDaoByHibernate.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/DBHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1720">
-          <caret line="98" column="9" lean-forward="true" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
-          <folding>
-            <element signature="e#522#523#0" expanded="true" />
-            <element signature="e#560#561#0" expanded="true" />
-            <element signature="method#createTable#0;class#UserDao#0" />
-            <element signature="method#dropTable#0;class#UserDao#0" />
-          </folding>
+        <state relative-caret-position="660">
+          <caret line="48" column="47" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="47" />
         </state>
       </provider>
     </entry>
